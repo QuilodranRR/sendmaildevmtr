@@ -1,5 +1,5 @@
 const nodemailer = require('nodemailer');
-
+const fs = require('fs');
 // Configura el transporte de Nodemailer
 const transporter = nodemailer.createTransport({
   service: 'gmail', // Ejemplo: 'Gmail'
@@ -10,7 +10,10 @@ const transporter = nodemailer.createTransport({
 });
 
 // Función para enviar un correo electrónico con un archivo adjunto
-function enviarCorreo(destinatario, asunto, texto, archivoAdjunto) {
+function enviarCorreo(destinatario, asunto, texto, filePath) {
+  // Lee el contenido del archivo PDF
+  const pdfContent = fs.readFileSync(filePath);
+
   const opcionesCorreo = {
     from: 'ricardoquilodran28@gmail.com',
     to: destinatario,
@@ -18,8 +21,8 @@ function enviarCorreo(destinatario, asunto, texto, archivoAdjunto) {
     text: texto,
     attachments: [
       {
-        filename: 'archivo.pdf', // Nombre del archivo adjunto
-        content: archivoAdjunto, // Contenido del archivo adjunto (PDF en formato Buffer)
+        filename: 'CheckList_Equipos_Criticos.pdf',
+        content: pdfContent, // Adjunta el contenido del archivo PDF
       },
     ],
   };

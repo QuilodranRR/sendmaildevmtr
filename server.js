@@ -1,13 +1,14 @@
 const express = require('express');
 const app = express();
-const multer = require('multer'); // Importa la biblioteca multer.
+const multer = require('multer');
 const cors = require('cors');
 const puerto = process.env.PORT || 3000;
+const enviarCorreo = require('./email'); // Importa la función de envío de correo.
 
 // Configura el almacenamiento de archivos con multer.
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'uploads/'); // El directorio donde se guardarán los archivos.
+    cb(null, 'uploads/'); // Directorio donde se guardarán los archivos.
   },
   filename: function (req, file, cb) {
     // Genera un nombre de archivo único.
@@ -18,31 +19,48 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 
+  
 
-app.use(cors());
+
+const corsOptions = {
+  origin: 'http://localhost:8100', // Reemplaza con la URL de tu aplicación Angular
+};
+
+app.use(cors(corsOptions));
+
 
 // Ruta para subir el archivo PDF.
-app.post('/subir-pdf', upload.single('pdfFile'), (req, res) => {
+app.post('/subir-pdf', upload.single('pdfData'), (req, res) => {
   if (!req.file) {
-    // Si no se proporciona un archivo, devuelve un error.
     return res.status(400).json({ error: 'No se proporcionó ningún archivo PDF.' });
   }
 
-  // En este punto, el archivo se ha subido con éxito y se puede acceder en req.file.
-  // Puedes realizar las acciones necesarias, como guardar el archivo o procesarlo.
-
-  // Ejemplo: Guardar el archivo en una carpeta específica.
   const filePath = req.file.path;
 
-  // A partir de aquí, puedes realizar otras acciones como enviar el archivo por correo electrónico o procesarlo de la manera que necesites.
+  // En este punto, filePath contiene la ruta del archivo PDF subido.
+  // Puedes enviar este archivo por correo electrónico utilizando la función enviarCorreo.
+
+  // Ejemplo de envío de correo electrónico.
+  enviarCorreo(
+    'ricardo.quilodran24@gmail.com ', // Reemplaza con la dirección de correo del destinatario.
+    'Test PDF',
+    'TEST ENVIO CORREO',
+    filePath // Ruta del archivo adjunto.
+  );
 
   res.status(200).json({ message: 'PDF recibido y procesado con éxito.' });
+});
+
+app.get('/', (req, res) => {
+  const status = {
+    "Status":"Running"
+ };
+
+ res.send(status);
+ 
+
 });
 
 app.listen(puerto, () => {
   console.log(`Servidor Node.js escuchando en el puerto ${puerto}`);
 });
-
-  
-
-  
