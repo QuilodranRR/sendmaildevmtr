@@ -23,10 +23,13 @@ const upload = multer({ storage: storage });
 
 
 const corsOptions = {
-  origin: 'http://localhost:8100', // Reemplaza con la URL de tu aplicación Angular
+  origin: '*',
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  allowedHeaders: 'Content-Type,Authorization',
 };
 
 app.use(cors(corsOptions));
+
 
 
 // Ruta para subir el archivo PDF.
@@ -42,7 +45,7 @@ app.post('/subir-pdf', upload.single('pdfData'), (req, res) => {
 
   // Ejemplo de envío de correo electrónico.
   enviarCorreo(
-    'ricardo.quilodran24@gmail.com ', // Reemplaza con la dirección de correo del destinatario.
+    'ricardo.quilodran24@gmail.com', // Reemplaza con la dirección de correo del destinatario.
     'Test PDF',
     'TEST ENVIO CORREO',
     filePath // Ruta del archivo adjunto.
