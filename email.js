@@ -1,5 +1,8 @@
+// email.js
+
 const nodemailer = require('nodemailer');
 const fs = require('fs');
+
 // Configura el transporte de Nodemailer
 const transporter = nodemailer.createTransport({
   service: 'gmail', // Ejemplo: 'Gmail'
@@ -10,18 +13,22 @@ const transporter = nodemailer.createTransport({
 });
 
 // Función para enviar un correo electrónico con un archivo adjunto
-function enviarCorreo(destinatario, asunto, texto, filePath) {
+function enviarCorreo(destinatario, asunto, texto, filePath, ccList,jornada,turno,nombresProfesionales) {
   // Lee el contenido del archivo PDF
   const pdfContent = fs.readFileSync(filePath);
+
+  const fechaEnvio = new Date().toLocaleString();
+  const textoConFecha = `${texto}\nNombres Encargados : ${nombresProfesionales}\nJornada : ${jornada}\nTurno: ${turno} \nFecha y Hora: ${fechaEnvio} `;
 
   const opcionesCorreo = {
     from: 'ricardoquilodran28@gmail.com',
     to: destinatario,
+    cc: ccList.join(','),
     subject: asunto,
-    text: texto,
+    text: `Respaldo de checkList equipos críticos de comunicación:\n${textoConFecha}` ,
     attachments: [
       {
-        filename: 'CheckList_Equipos_Criticos.pdf',
+        filename: `CheckList_Equipos_Criticos_Jornada:${jornada}_Turno:${turno}.pdf`,
         content: pdfContent, // Adjunta el contenido del archivo PDF
       },
     ],
@@ -37,3 +44,13 @@ function enviarCorreo(destinatario, asunto, texto, filePath) {
 }
 
 module.exports = enviarCorreo;
+
+
+
+
+
+
+
+
+
+

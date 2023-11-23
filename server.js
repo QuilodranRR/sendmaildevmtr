@@ -40,17 +40,26 @@ app.post('/subir-pdf', upload.single('pdfData'), (req, res) => {
   }
 
   const filePath = req.file.path;
+  const jornada = req.body.Jornada;  // Cambiado de jornada a Jornada
+  const turno = req.body.Turnos;
+  const nombresProfesionales = req.body.PersonalA;
 
-  // En este punto, filePath contiene la ruta del archivo PDF subido.
-  // Puedes enviar este archivo por correo electrónico utilizando la función enviarCorreo.
+console.log('Jornada:', jornada);
+console.log('turno :' , turno)
 
-  // Ejemplo de envío de correo electrónico.
-  enviarCorreo(
-    'ricardo.quilodran24@gmail.com', // Reemplaza con la dirección de correo del destinatario.
-    'Test PDF',
-    'TEST ENVIO CORREO',
-    filePath // Ruta del archivo adjunto.
-  );
+enviarCorreo(
+  'ricardo.quilodran24@gmail.com',
+  'CheckList  ',
+  'Datos del Check List:',
+  filePath,
+  ['ricardo.quilodran26@gmail.com', 'ri.quilodran@duocuc.cl'],
+  jornada,
+  turno,
+  nombresProfesionales,
+);
+
+  
+  
 
   res.status(200).json({ message: 'PDF recibido y procesado con éxito.' });
 });
