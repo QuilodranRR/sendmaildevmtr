@@ -7,8 +7,8 @@ const fs = require('fs');
 const transporter = nodemailer.createTransport({
   service: 'gmail', // Ejemplo: 'Gmail'
   auth: {
-    user: 'ricardoquilodran28@gmail.com', // Tu dirección de correo electrónico
-    pass: 'ziaj mkqj cntz fipo', // Tu contraseña
+    user: 'permanencia.comunicacionesmetro@gmail.com', // Tu dirección de correo electrónico
+    pass: 'fgun mjek rwej jbij', // Tu contraseña
   },
 });
 
@@ -21,11 +21,11 @@ function enviarCorreo(destinatario, asunto, texto, filePath, ccList,jornada,turn
   const textoConFecha = `${texto}\nNombres Encargados : ${nombresProfesionales}\nJornada : ${jornada}\nTurno: ${turno} \nFecha y Hora: ${fechaEnvio} `;
 
   const opcionesCorreo = {
-    from: 'ricardoquilodran28@gmail.com',
+    from: 'permanencia.comunicacionesmetro@gmail.com',
     to: destinatario,
     cc: ccList.join(','),
     subject: asunto,
-    text: `Respaldo de checkList equipos críticos de comunicación:\n${textoConFecha}` ,
+    text: `Respaldo de checkList equipos críticos de comunicación. \n${textoConFecha}` ,
     attachments: [
       {
         filename: `CheckList_Equipos_Criticos_Jornada:${jornada}_Turno:${turno}.pdf`,
