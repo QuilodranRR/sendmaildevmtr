@@ -48,11 +48,11 @@ console.log('Jornada:', jornada);
 console.log('turno :' , turno)
 
 enviarCorreo(
-  'carojas@metro.cl',
+  'ricardoquilodran28@gmail.com',
   'CheckList  ',
   'Datos del Check List:',
   filePath,
-  ['ricardoquilodran28@gmail.com'],
+  ['ricardo.quilodran24@gmail.com' ,' permanenciacomunicaciones@metro.cl'],
   jornada,
   turno,
   nombresProfesionales,
