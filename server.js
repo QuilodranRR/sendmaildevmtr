@@ -52,7 +52,7 @@ enviarCorreo(
   'CheckList  ',
   'Datos del Check List:',
   filePath,
-  ['ricardo.quilodran24@gmail.com' ,' permanenciacomunicaciones@metro.cl'],
+  ['ricardo.quilodran24@gmail.com' ,'carojas@metro.cl' ,],
   jornada,
   turno,
   nombresProfesionales,
