@@ -29,7 +29,7 @@ const corsOptions = {
   credentials: true,
 };
 
-app.use(cors(corsOptions));
+app.use(cors(corsOptions));+
 
 
 
@@ -48,11 +48,11 @@ console.log('Jornada:', jornada);
 console.log('turno :' , turno)
 
 enviarCorreo(
-  'permanenciacomunicaciones@metro.cl',
+  'carojas@metro.cl',
   'CheckList  ',
   'Datos del Check List:',
   filePath,
-  ['malvial@metro.cl', 'galegria@metro.cl'],
+  ['ricardoquilodran28@gmail.com'],
   jornada,
   turno,
   nombresProfesionales,
