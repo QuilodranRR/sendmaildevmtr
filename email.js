@@ -13,13 +13,15 @@ const transporter = nodemailer.createTransport({
 });
 
 // Función para enviar un correo electrónico con un archivo adjunto
-function enviarCorreo(destinatario, asunto, texto, filePath, ccList,jornada,turno,nombresProfesionales) {
+function enviarCorreo(destinatario, asunto, texto, filePath, ccList,jornada,turno,nombresProfesionales,correoCliente) {
   // Lee el contenido del archivo PDF
   const pdfContent = fs.readFileSync(filePath);
 
   const fechaEnvio = new Date().toLocaleString();
   const textoConFecha = `${texto}\nNombres Encargados : ${nombresProfesionales}\nJornada : ${jornada}\nTurno: ${turno} \nFecha y Hora: ${fechaEnvio} `;
+  const ccAddresses = Array.isArray(ccList) ? ccList.join(',') : '';
 
+  
   const opcionesCorreo = {
     from: 'permanencia.comunicacionesmetro@gmail.com',
     to: destinatario,

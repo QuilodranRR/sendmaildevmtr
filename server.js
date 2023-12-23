@@ -43,16 +43,18 @@ app.post('/subir-pdf', upload.single('pdfData'), (req, res) => {
   const jornada = req.body.Jornada;  // Cambiado de jornada a Jornada
   const turno = req.body.Turnos;
   const nombresProfesionales = req.body.PersonalA;
+  const correoCliente = req.body.Email;
 
 console.log('Jornada:', jornada);
 console.log('turno :' , turno)
+console.log('Correo ingresado ',correoCliente)
 
 enviarCorreo(
-  'ricardoquilodran28@gmail.com',
+  correoCliente,
   'CheckList  ',
   'Datos del Check List:',
   filePath,
-  ['ricardo.quilodran24@gmail.com' ,'carojas@metro.cl' ,],
+  [],
   jornada,
   turno,
   nombresProfesionales,
